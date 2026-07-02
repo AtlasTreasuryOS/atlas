@@ -80,5 +80,5 @@ npm run single
 
 A detailed, code-level breakdown of Atlas Treasury OS — including cadence logic, sweep maths, peg enforcement, AI guardrails, and scalability — is available here:
 
-→ [Framework breakdown](https://github.com/PumpLandSOL/atlas/blob/main/framework-breakdown.md)
+→ [Framework breakdown](https://github.com/AtlasTreasuryOS/atlas/blob/main/framework-breakdown.md)
 
