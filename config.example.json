@@ -1,0 +1,85 @@
+{
+  "rpcUrl": "https://api.mainnet-beta.solana.com",
+  "launch": {
+    "tsMs": 0,
+    "safetyHours": 24,
+    "intervalMin": 60
+  },
+  "cadence": {
+    "minIntervalMin": 30,
+    "maxIntervalMin": 360,
+    "pivotUsd": 20,
+    "spikeUsd": 10,
+    "spikePct": 0.25,
+    "spikeIntervalMult": 0.5
+  },
+  "policy": {
+    "minPct": 0.01,
+    "maxPct": 0.029,
+    "spikePct": 0.2,
+    "spikeSol": 0.1
+  },
+  "limits": {
+    "slippageBps": 50,
+    "minSolChunk": 0.008,
+    "maxSolChunk": 0.010,
+    "collectorSolBuffer": 0.01
+  },
+  "devTopup": {
+    "enabled": true,
+    "minSOL": 0.1,
+    "maxMove": 0.2,
+    "pctMin": 0.3,
+    "pctMax": 0.4,
+    "retries": 3
+  },
+  "retries": {
+    "jupiter": 3,
+    "backoffMs": 4000
+  },
+  "mintBurn": {
+    "enabled": false
+  },
+  "protocolFee": {
+    "enabled": true,
+    "bps": 100,
+    "recipientUsdcAta": "ATLAS_FEE_USDC_ATA"
+  },
+  "donation": {
+    "enabled": false,
+    "bps": 0,
+    "recipientUsdcAta": "DONATION_USDC_ATA"
+  },
+  "reporting": {
+    "postTxReply": false,
+    "siteWebhook": "",
+    "commentary": {
+      "enabled": false
+    }
+  },
+  "llm": {
+    "enabled": false,
+    "mode": "reporter_only",
+    "model": "gpt-4o-mini"
+  },
+  "addresses": {
+  "dev": "DEV_PUBLIC_KEY",
+  "collector": "COLLECTOR_PUBLIC_KEY",
+  "treasury": "TREASURY_PUBLIC_KEY",
+
+  "usdcMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+
+  "collectorUsdcAta": "COLLECTOR_USDC_ATA",
+  "treasuryUsdcAta": "TREASURY_USDC_ATA",
+
+  "atlasMint": "ATLAS_MINT",
+  "treasuryAtlasAta": "TREASURY_ATLAS_ATA"
+  },
+  "jupiter": {
+    "base": "https://lite-api.jup.ag",
+    "apiKey": ""
+  },
+  "price": {
+    "solUsd": null
+  }
+}

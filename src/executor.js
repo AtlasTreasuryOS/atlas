@@ -1,0 +1,1 @@
+async function withRetry(fn,{retries=3,backoffMs=4000,label='op'}={}){let err;for(let i=0;i<retries;i++){try{return await fn()}catch(e){err=e;if(i<retries-1)await new Promise(r=>setTimeout(r,backoffMs))}}throw new Error(`${label} failed after ${retries} retries: ${err?.message||err}`)}module.exports={withRetry};

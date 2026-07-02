@@ -1,0 +1,1 @@
+const fs=require('fs');const path=require('path');function loadConfig(cfgPath=path.join(process.cwd(),'config.json')){if(!fs.existsSync(cfgPath))throw new Error(`missing config.json (copy from config.example.json): ${cfgPath}`);return JSON.parse(fs.readFileSync(cfgPath,'utf8'))}module.exports={loadConfig};

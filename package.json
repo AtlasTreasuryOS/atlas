@@ -1,0 +1,26 @@
+{
+  "name": "atlas-treasury-os",
+  "version": "0.2.0-beta",
+  "description": "An open-source treasury automation framework for Solana",
+  "main": "src/index.js",
+  "bin": {
+    "atlas-treasurer": "bin/atlas-treasurer.js"
+  },
+  "type": "commonjs",
+  "scripts": {
+    "start": "node bin/atlas-treasurer.js",
+    "single": "SINGLE_RUN=1 node bin/atlas-treasurer.js",
+    "verify": "node bin/verify-receipt.js",
+    "lint:quick": "node -c src/engine.js && node -c src/jupiter.js && node -c src/solana.js"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.0",
+    "@solana/spl-token": "^0.4.8",
+    "axios": "^1.6.8",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "openai": "^4.0.0",
+    "twitter-api-v2": "^1.17.0"
+  },
+  "license": "MIT"
+}
