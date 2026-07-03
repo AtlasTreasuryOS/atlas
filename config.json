@@ -40,10 +40,15 @@
   "mintBurn": {
     "enabled": false
   },
+  "lend": {
+    "enabled": true,
+    "venue": "jupiter-lend",
+    "maxDeployPct": 0.9
+  },
   "protocolFee": {
     "enabled": true,
     "bps": 100,
-    "recipientUsdcAta": "ATLAS_FEE_USDC_ATA"
+    "recipientUsdcAta": "DzVZQXyTH8MfZEA4yN3miUEF5Xs9Buf5ZWfB9ENTadVm"
   },
   "donation": {
     "enabled": false,
@@ -63,17 +68,17 @@
     "model": "gpt-4o-mini"
   },
   "addresses": {
-  "dev": "DEV_PUBLIC_KEY",
-  "collector": "COLLECTOR_PUBLIC_KEY",
-  "treasury": "TREASURY_PUBLIC_KEY",
+  "dev": "J8rrrwYabkwTpbkWKojyVwPaGe7jvNJ1e9r6NvrZnxvz",
+  "collector": "3B1bLHsdjEayYgWZjZgzyV8wBtrxsbpX2k9fJrwTnt69",
+  "treasury": "BybGpYccViBQvw2dEZUsFNFa4So9BZ8VCv2fc5tvVmiy",
 
   "usdcMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
 
-  "collectorUsdcAta": "COLLECTOR_USDC_ATA",
-  "treasuryUsdcAta": "TREASURY_USDC_ATA",
+  "collectorUsdcAta": "3kn526r8M8Lkbdsex9UbiXAN1u5H6u7zAmjCq219QsDa",
+  "treasuryUsdcAta": "FR45gJ1kwQSHC7fqvpPJweBVfCqNP6FXRWAroBG3eUGC",
 
-  "atlasMint": "ATLAS_MINT",
-  "treasuryAtlasAta": "TREASURY_ATLAS_ATA"
+  "atlasMint": "5juLvibGs9qpEsb9E8EYdDTRWyptY1dKZa7odgbUpump",
+  "treasuryAtlasAta": "Aj18RKFZ5JUkcrkfN1wT7QW3HXTUmNKaTHekVpQA8ghU"
   },
   "jupiter": {
     "base": "https://lite-api.jup.ag",
