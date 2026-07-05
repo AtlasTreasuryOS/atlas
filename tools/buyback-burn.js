@@ -7,7 +7,9 @@ const axios = require('axios');
 const { Connection, Keypair, PublicKey, VersionedTransaction, Transaction } = require('@solana/web3.js');
 const { createBurnCheckedInstruction, getAssociatedTokenAddressSync, TOKEN_2022_PROGRAM_ID } = require('@solana/spl-token');
 const { writeReceipt } = require('../src/reporters/receipt');
+const { makeTwitterClient, postToX, replyToX } = require('../src/reporters/x');
 const cfg = require('../config.json');
+const SITE = (process.env.SITE_URL || 'https://atlastreasuryos.xyz').replace(/\/+$/, '');
 
 const USDC = cfg.addresses.usdcMint;
 const ATLAS = cfg.addresses.atlasMint;
@@ -72,4 +74,35 @@ const load = (f) => Keypair.fromSecretKey(new Uint8Array(JSON.parse(fs.readFileS
   const fp = writeReceipt(receipt);
   console.log(JSON.stringify(receipt, null, 2));
   console.log('receipt:', fp);
+
+  // ---- push to the live dashboard so the BURNED counter updates ----
+  try { await axios.post(SITE + '/webhook', receipt, { timeout: 8000 }); console.log('dashboard updated:', SITE); }
+  catch (e) { console.log('webhook post failed (continuing):', e.message); }
+
+  // ---- figure out cumulative totals for the tweet (source of truth = the live site) ----
+  let total = burned, burnNo = 1;
+  try {
+    const st = (await axios.get(SITE + '/api/state', { timeout: 8000 })).data;
+    if (st && st.burned) total = st.burned;
+    const rcs = (await axios.get(SITE + '/api/receipts?n=200', { timeout: 8000 })).data.receipts || [];
+    burnNo = rcs.filter((r) => r.action === 'buyback_burn').length || 1;
+  } catch (e) {}
+
+  // ---- auto-post the burn to X (main tweet + threaded reply with the on-chain proof) ----
+  const x = makeTwitterClient();
+  if (!x) {
+    console.log('X credentials not set — skipping tweet. Set X_APP_KEY / X_APP_SECRET / X_ACCESS_TOKEN / X_ACCESS_SECRET to enable auto-posting.');
+  } else {
+    const main = `🔥 burn #${burnNo}\n\n`
+      + `the treasury just bought ${Math.round(burned).toLocaleString()} $ATLAS on jupiter and burned it.\n\n`
+      + `${Math.round(total).toLocaleString()} $ATLAS gone forever.\n\n`
+      + `watch the counter, live from the chain:\natlastreasuryos.xyz`;
+    const proof = (buySig ? `buy: https://solscan.io/tx/${buySig}\n` : '')
+      + `burn: https://solscan.io/tx/${burnSig}\n\nverified on-chain. supply only goes down.`;
+    try {
+      const id = await postToX(x, main);
+      console.log('tweeted:', id);
+      if (id) { const rid = await replyToX(x, proof, id); console.log('reply:', rid); }
+    } catch (e) { console.log('tweet failed (continuing):', e.data ? JSON.stringify(e.data) : e.message); }
+  }
 })().catch((e) => { console.error('ERR', e.response?.data ? JSON.stringify(e.response.data) : e.message); process.exit(1); });
